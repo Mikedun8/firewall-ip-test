@@ -18,7 +18,7 @@ class CheckGeoLocation
     {
         try {
             // Obtener la dirección IP del cliente
-            $ip = $request->ip();
+            $ip = $request->getClientIp();
             print("esta es mi ip: " . $ip);
             $client = new Client(10, env('MAXMINDKEY'));
 

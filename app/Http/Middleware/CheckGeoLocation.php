@@ -18,8 +18,12 @@ class CheckGeoLocation
     {
         try {
             // Obtener la dirección IP del cliente
-            $ip = $request->getClientIp();
-            print("esta es mi ip: " . $ip);
+            $response_array_ip = $request->headers->all();
+            $ip = $response_array_ip["do-connecting-ip"][0];
+
+            print("esta es mi ip pública: " . $ip);
+
+            // Creación del cliente de MaxMind para usar los servicios de geolocation
             $client = new Client(10, env('MAXMINDKEY'));
 
             $record = $client->country($ip);
@@ -39,7 +43,6 @@ class CheckGeoLocation
 
         // Denegar el acceso a la ruta
         $ip = $request->ips();
-            //dd($ip);
             dd($request->headers->all());
         return redirect()->route('access.denied');
     }

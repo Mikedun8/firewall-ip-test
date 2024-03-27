@@ -20,16 +20,16 @@ class CheckGeoLocation
         try {
             // Obtener la dirección IP del cliente en produccion
             // Para probar metodos en local asignar manualmente la ip publica
-            // $response_array_ip = $request->headers->all();
-            // $ip = $response_array_ip["do-connecting-ip"][0];
+            $response_array_ip = $request->headers->all();
+            $ip = $response_array_ip["do-connecting-ip"][0];
 
             // print("esta es mi ip pública: " . $ip);
 
             // Creación del cliente de MaxMind para usar los servicios de geolocation
             $client = new Client(992235, env('MAXMINDKEY'), ['en'], ['host' => 'geolite.info']);
             
-            $record = $client->country('187.194.207.56');
-            //dump($record->country->isoCode);
+            $record = $client->country($ip);
+            //dump($record->country->isoCode); '187.194.207.56'
 
             // Verificar si el país de la dirección IP es México o Estados Unidos
             if ($record->country->isoCode === 'MX' || $record->country->isoCode === 'US') {

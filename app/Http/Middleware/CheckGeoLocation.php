@@ -24,7 +24,7 @@ class CheckGeoLocation
             print("esta es mi ip pública: " . $ip);
 
             // Creación del cliente de MaxMind para usar los servicios de geolocation
-            $client = new Client(10, env('MAXMINDKEY'));
+            $client = new Client(992235, env('MAXMINDKEY'));
 
             $record = $client->country($ip);
 

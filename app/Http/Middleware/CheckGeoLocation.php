@@ -29,7 +29,7 @@ class CheckGeoLocation
             $client = new Client(992235, env('MAXMINDKEY'), ['en'], ['host' => 'geolite.info']);
             
             $record = $client->country($ip);
-            dump($record->country->isoCode);
+            //dump($record->country->isoCode);
 
             // Verificar si el país de la dirección IP es México o Estados Unidos
             if ($record->country->isoCode === 'MX' || $record->country->isoCode === 'US') {
@@ -38,7 +38,7 @@ class CheckGeoLocation
             }
         } catch (\Throwable $e) {
             // Manejar cualquier error o excepción que ocurra durante la consulta
-            Log::error('Error processing GeoLocation: ' . $e->getMessage());
+            //Log::error('Error processing GeoLocation: ' . $e->getMessage());
             dump($e->getMessage());
         }
 

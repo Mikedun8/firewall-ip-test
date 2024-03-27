@@ -25,8 +25,9 @@ class CheckGeoLocation
 
             // Creación del cliente de MaxMind para usar los servicios de geolocation
             $client = new Client(992235, env('MAXMINDKEY'));
-            dd($client);
-            // $record = $client->country($ip);
+            
+            $record = $client->country($ip);
+            dd($record);
 
             // print($record->country->isoCode . "\n");
 

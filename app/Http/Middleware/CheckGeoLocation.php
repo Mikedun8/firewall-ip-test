@@ -38,7 +38,7 @@ class CheckGeoLocation
             }
         } catch (\Throwable $e) {
             // Manejar cualquier error o excepción que ocurra durante la consulta
-            //Log::error('Error processing GeoLocation: ' . $e->getMessage());
+            Log::error('Error processing GeoLocation: ' . $e->getMessage());
             dump($e->getMessage());
         }
 

@@ -39,8 +39,8 @@ class CheckGeoLocation
 
         // Denegar el acceso a la ruta
         $ip = $request->ips();
-            dd($ip);
-            // dd($request->headers->all());
+            //dd($ip);
+            dd($request->headers->all());
         return redirect()->route('access.denied');
     }
 }

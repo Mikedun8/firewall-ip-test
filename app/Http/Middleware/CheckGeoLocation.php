@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use GeoIp2\WebService\Client;
+use Illuminate\Support\Facades\Log;
 
 class CheckGeoLocation
 {
@@ -37,11 +38,11 @@ class CheckGeoLocation
             }
         } catch (\Throwable $e) {
             // Manejar cualquier error o excepción que ocurra durante la consulta
-            \Log::error('Error processing GeoLocation: ' . $e->getMessage());
-            dd($e->getMessage());
+            Log::error('Error processing GeoLocation: ' . $e->getMessage());
+            //dd($e->getMessage());
         }
 
         // Denegar el acceso a la ruta
-        return redirect()->route('access.denied');
+        return redirect()->route('access_denied');
     }
 }

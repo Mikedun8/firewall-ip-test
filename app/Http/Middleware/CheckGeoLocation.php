@@ -29,8 +29,9 @@ class CheckGeoLocation
             $client = new Client(992235, env('MAXMINDKEY'), ['en'], ['host' => 'geolite.info']);
             
             $record = $client->country($ip);
-            //dump($record->country->isoCode); '187.194.207.56'
-
+            dump($record->country->isoCode); 
+            // my ip: '187.194.207.56'
+            dump($ip);
             // Verificar si el país de la dirección IP es México o Estados Unidos
             if ($record->country->isoCode === 'MX' || $record->country->isoCode === 'US') {
                 // Permitir el acceso a la ruta

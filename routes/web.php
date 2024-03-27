@@ -19,4 +19,7 @@ Route::view('requests', 'livewire.credit_requests.requests')
 Route::view('credit-request', 'livewire.credit_requests.create-credit-request')
     ->name('credit-request');
 
-require __DIR__.'/auth.php';
+Route::view('access.denied', 'access_denied')
+    ->name('access.denied');
+
+require __DIR__ . '/auth.php';

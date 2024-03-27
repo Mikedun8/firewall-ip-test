@@ -17,34 +17,31 @@ class CheckGeoLocation
     public function handle(Request $request, Closure $next): Response
     {
         try {
-            // Obtener la dirección IP del cliente
+            // Obtener la dirección IP del cliente en produccion
+            // Para probar metodos en local asignar manualmente la ip publica
             $response_array_ip = $request->headers->all();
             $ip = $response_array_ip["do-connecting-ip"][0];
 
-            print("esta es mi ip pública: " . $ip);
+            // print("esta es mi ip pública: " . $ip);
 
             // Creación del cliente de MaxMind para usar los servicios de geolocation
-            $client = new Client(992235, env('MAXMINDKEY'));
+            $client = new Client(992235, env('MAXMINDKEY'), ['en'], ['host' => 'geolite.info']);
             
             $record = $client->country($ip);
-            dd($record);
+            //dd($record->country->isoCode);
 
-            // print($record->country->isoCode . "\n");
-
-            // // Verificar si el país de la dirección IP es México o Estados Unidos
-            // if ($record->country->isoCode === 'MX' || $record->country->isoCode === 'US') {
-            //     // Permitir el acceso a la ruta
-            //     return $next($request);
-            // }
+            // Verificar si el país de la dirección IP es México o Estados Unidos
+            if ($record->country->isoCode === 'MX' || $record->country->isoCode === 'US') {
+                // Permitir el acceso a la ruta
+                return $next($request);
+            }
         } catch (\Throwable $e) {
             // Manejar cualquier error o excepción que ocurra durante la consulta
             \Log::error('Error processing GeoLocation: ' . $e->getMessage());
+            dd($e->getMessage());
         }
 
-
         // Denegar el acceso a la ruta
-        //$ip = $request->ips();
-            //dd($request->headers->all());
         return redirect()->route('access.denied');
     }
 }
